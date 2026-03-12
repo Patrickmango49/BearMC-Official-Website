@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head><link rel="icon" type="image/png" href="favicon.png"></head>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>𝔹𝕖𝕒𝕣𝕄ℂ — Official Server Website</title>
+<style>
+/* ... (your existing CSS styles) ... */
+#bgCanvas { position: fixed; inset: 0; z-index: 0; }
+</style>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+<div id="app" class="wrap">
+<!-- ... (rest of your HTML content) ... -->
+</div>
+
+<script>
+// -----------------------------
+// Responsive Canvas Size and Particles Initialization
+// -----------------------------
+
+// Initialize W and H to current window size
+let W = window.innerWidth;
+let H = window.innerHeight;
+
+// Get canvas and set size
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = W;
+canvas.height = H;
+
+// Declare particles array BEFORE initParticles
+const particles = [];
+
+function rand(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+function initParticles() {
+  particles.length = 0;
+  const count = Math.floor((W * H) / 90000 * 12);
+  console.log(`Initializing ${count} particles`);
+  for (let i = 0; i < count; i++) {
+    particles.push({
+      x: rand(0, W),
+      y: rand(-H, H),
+      r: rand(0.6, 3.4),
+      speed: rand(0.2, 1.4),
+      drift: rand(-0.4, 0.4),
+      hue: rand(180, 210),
+      alpha: rand(0.2, 0.9),
+    });
+  }
+  console.log(`Particles created: ${particles.length}`);
+}
+
+// Call once at start
+initParticles();
+
+// Resize handler to keep size and particles in sync
+window.addEventListener('resize', () => {
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width = W;
+  canvas.height = H;
+  initParticles();
+});
+
+// -----------------------------
+// Animation Loop
+// -----------------------------
+let last = 0;
+function draw(t) {
+  const dt = (t - last) / 16.666; // frame delta
+  last = t;
+
+  // Draw background gradient
+  const g = ctx.createLinearGradient(0, 0, W, H);
+  const time = t * 0.00012;
+  const off1 = Math.sin(time) * 0.2 + 0.5;
+  const off2 = Math.cos(time * 1.3) * 0.2 + 0.5;
+  g.addColorStop(0, `rgba(6,10,30,${0.8 + off1 * 0.2})`);
+  g.addColorStop(1, `rgba(10,6,40,${0.9 - off2 * 0.2})`);
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, W, H);
+
+  // Draw radial gradients
+  for (let i = 0; i < 6; i++) {
+    const cx = (Math.sin(time * (0.6 + i * 0.2) + i) * 0.5 + 0.5) * W;
+    const cy = (Math.cos(time * (0.4 + i * 0.3) - i) * 0.5 + 0.5) * H;
+    const grd = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.max(W, H) * 0.6);
+    grd.addColorStop(0, `rgba(122,252,255,${0.04 / (i + 0.5)})`);
+    grd.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = grd;
+    ctx.fillRect(0, 0, W, H);
+  }
+
+  // Animate particles
+  for (let p of particles) {
+    p.y += p.speed * dt;
+    p.x += p.drift * dt + Math.sin((t + p.x) * 0.0008) * 0.2;
+    if (p.y > H + 10) {
+      p.y = -10;
+      p.x = rand(0, W);
+    }
+
+    ctx.beginPath();
+    ctx.globalAlpha = p.alpha * 0.9;
+    ctx.fillStyle = `hsl(${p.hue} 90% 70%)`;
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(draw);
+}
+
+// Start the animation
+requestAnimationFrame(draw);
+</script>
+
+<!-- rest of your code -->
+</body>
+</html>

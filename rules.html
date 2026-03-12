@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>𝔹𝕖𝕒𝕣𝕄ℂ — Rules</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1: #070717;
+  --bg2: #0b0f2a;
+  --glass: rgba(255,255,255,0.03);
+  --accent: #00f0ff;
+  --accent2: #0077ff;
+  --text: #e6f0ff;
+  --muted: #9aa3bf;
+  --neon-glow: 0 10px 40px rgba(0,240,255,0.12), 0 0 40px rgba(0,119,255,0.10);
+  --card-shadow: 0 10px 40px rgba(2,6,23,0.6);
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html,body,#app{height:100%}
+body{
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  background: var(--bg1);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow:hidden;
+}
+
+#bgCanvas{position:fixed;inset:0;z-index:0}
+.wrap{position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
+
+/* Header/navbar */
+header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:18px 28px;
+  background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);
+  backdrop-filter:blur(6px);
+  box-shadow:var(--card-shadow);
+}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{
+  width:56px;height:56px;border-radius:12px;overflow:hidden;
+  display:inline-block;flex:0 0 56px;
+  box-shadow:var(--neon-glow);border:1px solid rgba(255,255,255,0.04);background:transparent;
+}
+.logo img{width:100%;height:100%;object-fit:contain;display:block} 
+nav{display:flex;gap:10px;align-items:center}
+nav a{
+  color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600
+}
+nav a.active{
+  color:var(--accent);
+  box-shadow:var(--neon-glow);
+  background:linear-gradient(90deg,rgba(122,252,255,0.03),rgba(182,108,255,0.02))
+}
+.controls{display:flex;gap:10px;align-items:center}
+.btn{
+  background:var(--glass);
+  border:1px solid rgba(255,255,255,0.03);
+  padding:8px 12px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:700;
+  color:var(--text)
+}
+.accent{
+  background:linear-gradient(90deg,var(--accent),var(--accent2));
+  color:#021124;
+  box-shadow:var(--neon-glow);
+  border:none
+}
+
+/* Main content */
+main{padding:28px;flex:1;overflow:auto}
+.container{max-width:900px;margin:0 auto}
+
+/* Rules list */
+.rules-list{
+  margin-top:20px;
+  color:var(--muted);
+  line-height:1.6;
+}
+.rules-list li{
+  margin-bottom:10px;
+}
+
+/* Footer */
+footer{padding:14px 28px;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.06));text-align:center;color:var(--muted)}
+
+.muted{color:var(--muted)}
+.small{font-size:14px}
+</style>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+<div id="app" class="wrap">
+  <header>
+    <div class="brand">
+      <img class="logo" src="https://uploads.onecompiler.io/43t8mmpps/442mqzpjj/bear.webp" alt="BearMC Logo" />
+      <div>
+        <div style="font-weight:800">BearMC</div>
+        <div class="small muted">bearmc.myftp.org</div>
+      </div>
+    </div>
+    <nav id="nav">
+      <a href="https://bearmc.neocities.org/index">Home</a>
+      <a href="#" class="active">Rules</a>
+      <a href="https://bearmc.neocities.org/store">Store</a>
+      <a href="https://bearmc.neocities.org/staff">Staff</a>
+      <a href="https://discord.com/invite/QXqSHY5Rgr">Discord</a>
+      <a href="https://bearmc.neocities.org/vote">Vote</a>
+      <a href="https://bearmc.neocities.org/about">About</a>
+    </nav>
+    <div class="controls">
+      <button id="discordBtn" class="btn accent">Discord</button>
+      <button id="joinBtn" class="btn accent">Join Server</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <h2>Rules</h2>
+      <p class="muted">Please follow these rules to keep the server fun and safe for everyone.</p>
+      <ul class="rules-list">
+        <li>1. No racism of any kind and for any reason</li>
+        <li>2. No sharing public information unless you have permission</li>
+        <li>3. Do not be disrespectful to any mod or player</li>
+        <li>4. No impersonating staff or players</li>
+        <li>5. No scamming of any type (unless on anarchy)</li>
+        <li>6. No sharing accounts. You are responsible for your own account.</li>
+        <li>7. No hacking accounts. Logging into any Minecraft account without permission may result in a ban (6 months to permanent).</li>
+        <li>8. No duplication exploits. IP bans may be applied depending on severity.</li>
+        <li>9. No radar/mini map mods of any kind. Waypoint mods are allowed.</li>
+        <li>10. No hacks, including but not limited to:
+          <ul>
+            <li>X-Ray</li>
+            <li>Kill Aura</li>
+            <li>Fly Hack</li>
+            <li>Speed Hack</li>
+            <li>Jesus Hack</li>
+            <li>NoFall</li>
+            <li>Auto Clicker</li>
+            <li>Fast Click</li>
+            <li>ESP (Player ESP, Chest ESP)</li>
+            <li>Phase / NoClip</li>
+            <li>Freecam</li>
+            <li>Inventory Hacks</li>
+            <li>Duplication Glitches</li>
+            <li>Crash Exploits</li>
+          </ul>
+        </li>
+        <li>11. No spamming the chat</li>
+      </ul>
+    </div>
+  </main>
+
+  <footer>
+    <div class="small muted">© BearMC — bearmc.myftp.org</div>
+  </footer>
+</div>
+
+<script>
+// Particle background
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let W = window.innerWidth;
+let H = window.innerHeight;
+canvas.width = W;
+canvas.height = H;
+
+const particles = [];
+const particleCount = 60;
+for(let i=0;i<particleCount;i++){
+  particles.push({
+    x: Math.random()*W,
+    y: Math.random()*H,
+    r: Math.random()*2+1,
+    speed: Math.random()*0.5+0.2,
+    drift: Math.random()*0.5-0.25,
+    hue: Math.random()*50+180,
+    alpha: Math.random()*0.5+0.3
+  });
+}
+
+function draw(){
+  ctx.fillStyle = 'rgba(7,7,23,0.3)';
+  ctx.fillRect(0,0,W,H);
+  for(let p of particles){
+    p.y += p.speed;
+    p.x += p.drift;
+    if(p.y>H) p.y=0;
+    if(p.x>W) p.x=0;
+    if(p.x<0) p.x=W;
+    ctx.beginPath();
+    ctx.fillStyle = `hsla(${p.hue},100%,50%,${p.alpha})`;
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+  }
+  requestAnimationFrame(draw);
+}
+draw();
+window.addEventListener('resize', ()=>{ W=window.innerWidth; H=window.innerHeight; canvas.width=W; canvas.height=H; });
+</script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BearMC — Server Name-Tags Store</title>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg1: #070717;
+      --bg2: #0b0f2a;
+      --glass: rgba(255,255,255,0.03);
+      --accent: #00f0ff;
+      --accent2: #0077ff;
+      --text: #e6f0ff;
+      --muted: #9aa3bf;
+      --neon-glow: 0 10px 40px rgba(0,240,255,0.12), 0 0 40px rgba(0,119,255,0.10);
+      --card-shadow: 0 10px 40px rgba(2,6,23,0.6);
+    }
+
+    body{
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      color:var(--text);
+      margin:0; padding:0;
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    a { text-decoration:none; }
+
+    /* header/navbar */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:18px 28px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);
+      backdrop-filter:blur(6px);
+      box-shadow:var(--card-shadow)
+    }
+
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:12px;overflow:hidden;box-shadow:var(--neon-glow);border:1px solid rgba(255,255,255,0.04);}
+    .logo img{width:100%;height:100%;object-fit:contain}
+    
+    nav{display:flex;gap:10px;align-items:center;}
+    nav a{color:var(--muted);padding:8px 12px;border-radius:8px;font-weight:600}
+    nav a.active{color:var(--accent);box-shadow:var(--neon-glow);background:linear-gradient(90deg,rgba(122,252,255,0.03),rgba(182,108,255,0.02))}
+
+    main{padding:28px;position:relative;z-index:2;}
+    .container{max-width:1200px;margin:0 auto}
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:14px;
+      margin-top:14px;
+    }
+
+    .item{
+      padding:16px;
+      border-radius:14px;
+      background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow: var(--card-shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .item:hover{
+      transform: translateY(-4px);
+      box-shadow: var(--neon-glow);
+    }
+
+    .item h4{margin-bottom:6px}
+    .muted{color:var(--muted)}
+    .small{font-size:13px}
+    .item p{color:var(--muted);font-size:14px}
+
+    .buy{margin-top:8px;display:flex;gap:8px;flex-wrap:wrap}
+
+    .btn{
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      color:#021124;
+      border:none;
+      padding:8px 12px;
+      border-radius:10px;
+      font-weight:700;
+      cursor:pointer;
+      display:inline-block;
+      text-align:center;
+      transition:0.15s;
+    }
+
+    .btn.secondary{
+      background:transparent;
+      color:var(--muted);
+      border:1px solid rgba(255,255,255,0.04);
+      box-shadow:none;
+    }
+
+    .btn:hover{opacity:0.92; transform:translateY(-2px)}
+
+    footer{padding:14px 28px;text-align:center;color:var(--muted)}
+
+    /* particle canvas */
+    #bgCanvas{position:fixed;inset:0;z-index:0}
+
+    @media (max-width:720px){
+      header{flex-direction:column;align-items:flex-start;gap:12px}
+      nav{flex-wrap:wrap}
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="bgCanvas"></canvas>
+
+<header>
+  <div class="brand">
+    <img class="logo" src="https://uploads.onecompiler.io/43t8mmpps/442mqzpjj/bear.webp" alt="BearMC Logo">
+    <div>
+      <div style="font-weight:800">BearMC</div>
+      <div class="small muted">bearmc.myftp.org</div>
+    </div>
+  </div>
+
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="store.html">Store</a>
+    <a href="store-tags.html" class="active">Name-Tags</a>
+    <a href="vote.html">Vote</a>
+    <a href="rules.html">Rules</a>
+    <a href="about.html">About</a>
+    <a href="https://discord.com/invite/QXqSHY5Rgr" target="_blank">Discord</a>
+  </nav>
+</header>
+
+<main>
+  <div class="container">
+    <h1>Server Name-Tags</h1>
+    <p class="muted">Buy unique server name-tags for your Minecraft profile. Multiple payment options available.</p>
+
+    <div style="margin-top:12px">
+      <!-- link the user asked to add -->
+      <a href="https://bearmc.neocities.org/store" class="btn" style="display:inline-block">Store</a>
+    </div>
+
+    <div class="grid" style="margin-top:18px">
+      <div class="item card">
+        <h4>[G.O.A.T.ED]</h4>
+        <p class="muted">Claim the ultimate tag for elite players.</p>
+        <div class="buy">
+          <a class="btn" href="https://bearmc-store.square.site/product/-g-o-a-t-ed-/TPF6UR33FPVUGO3O5TJWUJPM?cp=true&sa=true&sbp=false&q=false" target="_blank">Square</a>
+          <a class="btn" href="https://example.com" target="_blank">Blank 2</a>
+        </div>
+      </div>
+
+      <div class="item card">
+        <h4>[COOL]</h4>
+        <p class="muted">Show off your cool factor with this tag.</p>
+        <div class="buy">
+          <a class="btn" href="https://bearmc-store.square.site/product/-cool-/QRQRRVXSYRSZQYVTQHH3CGIU?cp=true&sa=true&sbp=false&q=false" target="_blank">Square</a>
+          <a class="btn" href="https://example.com" target="_blank">Blank 2</a>
+        </div>
+      </div>
+
+      <div class="item card">
+        <h4>[BLEED]</h4>
+        <p class="muted">A hardcore tag for PvP enthusiasts.</p>
+        <div class="buy">
+          <a class="btn" href="https://bearmc-store.square.site/product/-bleed-/NRMPGAW7AJGQFDUSBPJC5DM7?cp=true&sa=true&sbp=false&q=false" target="_blank">Square</a>
+          <a class="btn" href="https://example.com" target="_blank">Blank 2</a>
+        </div>
+      </div>
+
+      <div class="item card">
+        <h4>[PvP]</h4>
+        <p class="muted">Perfect for battle-hardened players.</p>
+        <div class="buy">
+          <a class="btn" href="https://bearmc-store.square.site/product/-pvp-/BP5IHIAFTZP422ZGVKVJJPZZ?cp=true&sa=true&sbp=false&q=false" target="_blank">Square</a>
+          <a class="btn" href="https://example.com" target="_blank">Blank 2</a>
+        </div>
+      </div>
+
+      <div class="item card">
+        <h4>[RICH]</h4>
+        <p class="muted">Show everyone your wealth in-game.</p>
+        <div class="buy">
+          <a class="btn" href="https://bearmc-store.square.site/product/-rich-/L5ZMF3C5JMZEAK55R3NCV32J?cp=true&sa=true&sbp=false&q=false" target="_blank">Square</a>
+          <a class="btn" href="https://example.com" target="_blank">Blank 2</a>
+        </div>
+      </div>
+
+      <div class="item card">
+        <h4>[OG]</h4>
+        <p class="muted">Original player status tag. Claim your OG ticket! Limited Edition!</p>
+        <div class="buy">
+          <a class="btn" href="https://bearmc-store.square.site/product/-og-limited-time/YISVX7B6XIMM6BDG446DL2JO?cp=true&sa=true&sbp=false&q=false" target="_blank">Square</a>
+          <a class="btn" href="https://example.com" target="_blank">Blank 2</a>
+        </div>
+      </div>
+
+      <div class="item card">
+        <h4>[SIGMA]</h4>
+        <p class="muted">For the silent, dominant players.</p>
+        <div class="buy">
+          <a class="btn" href="https://bearmc-store.square.site/product/-sigma-/A6O5UHTFLN5IGB6R4G54JBVU?cp=true&sa=true&sbp=false&q=false" target="_blank">Square</a>
+          <a class="btn" href="https://example.com" target="_blank">Blank 2</a>
+        </div>
+      </div>
+
+      <div class="item card">
+        <h4>[ONE]</h4>
+        <p class="muted">Stand out as number one!</p>
+        <div class="buy">
+          <a class="btn" href="https://bearmc-store.square.site/product/-one-/IZMYONWSWSGLZZBQKBNWSSVI?cp=true&sa=true&sbp=false&q=false" target="_blank">Square</a>
+          <a class="btn" href="https://example.com" target="_blank">Blank 2</a>
+        </div>
+      </div>
+
+      <div class="item card">
+        <h4>[STUPID]</h4>
+        <p class="muted">Humorous tag for fun-loving players.</p>
+        <div class="buy">
+          <a class="btn" href="https://bearmc-store.square.site/product/-stupid-/37ZHQZ3MF5UB57NQCEPAUUHG?cp=true&sa=true&sbp=false&q=false" target="_blank">Square</a>
+          <a class="btn" href="https://example.com" target="_blank">Blank 2</a>
+        </div>
+      </div>
+
+      <div class="item card">
+        <h4>[CHOPPED]</h4>
+        <p class="muted">A stylish, edgy tag.</p>
+        <div class="buy">
+          <a class="btn" href="https://bearmc-store.square.site/product/-chopped-/AJ5NSA3GQQSKGUJI3BDSUV33?cp=true&sa=true&sbp=false&q=false" target="_blank">Square</a>
+          <a class="btn" href="https://example.com" target="_blank">Blank 2</a>
+        </div>
+      </div>
+
+      <div class="item card">
+        <h4>[NoLife]</h4>
+        <p class="muted">Show your dedication to Minecraft!</p>
+        <div class="buy">
+          <a class="btn" href="https://bearmc-store.square.site/product/-nolife-/7XZN5P44WYYENQ3LEAXG4T7C?cp=true&sa=true&sbp=false&q=false" target="_blank">Square</a>
+          <a class="btn" href="https://example.com" target="_blank">Blank 2</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="small muted">© BearMC — bearmc.myftp.org</div>
+</footer>
+
+<script>
+  // Particle background (same as other pages)
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let W = window.innerWidth;
+  let H = window.innerHeight;
+  canvas.width = W; canvas.height = H;
+
+  const particles = [];
+  const particleCount = 60;
+  for(let i=0;i<particleCount;i++){
+    particles.push({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      r: Math.random()*2+1,
+      speed: Math.random()*0.5+0.2,
+      drift: Math.random()*0.5-0.25,
+      hue: Math.random()*50+180,
+      alpha: Math.random()*0.5+0.3
+    });
+  }
+
+  function draw(){
+    ctx.fillStyle = 'rgba(7,7,23,0.3)';
+    ctx.fillRect(0,0,W,H);
+    for(let p of particles){
+      p.y += p.speed;
+      p.x += p.drift;
+      if(p.y>H) p.y=0;
+      if(p.x>W) p.x=0;
+      if(p.x<0) p.x=W;
+      ctx.beginPath();
+      ctx.fillStyle = `hsla(${p.hue},100%,50%,${p.alpha})`;
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+
+  window.addEventListener('resize', ()=> {
+    W = window.innerWidth; H = window.innerHeight;
+    canvas.width = W; canvas.height = H;
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+.server-box {
+  background: rgba(0, 255, 255, 0.06);
+  border: 2px solid #00ffff;
+  color: #00ffff;
+  padding: 20px;
+  width: fit-content;
+  margin: 20px auto;
+  border-radius: 12px;
+  text-align: center;
+  font-size: 18px;
+  box-shadow: 0 0 10px #00ffffAA;
+  animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 10px #00ffffAA; }
+  to { box-shadow: 0 0 20px #00ffff; }
+}

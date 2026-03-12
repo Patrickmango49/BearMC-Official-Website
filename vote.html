@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <link rel="icon" type="image/png" href="favicon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BearMC — Vote</title>
+  <style>
+    :root{
+      --bg1: #070717;
+      --bg2: #0b0f2a;
+      --glass: rgba(255,255,255,0.03);
+      --accent: #00f0ff;
+      --accent2: #0077ff;
+      --text: #e6f0ff;
+      --muted: #9aa3bf;
+      --neon-glow: 0 10px 40px rgba(0,240,255,0.12), 0 0 40px rgba(0,119,255,0.10);
+      --card-shadow: 0 10px 40px rgba(2,6,23,0.6);
+    }
+    [data-theme='light']{
+      --bg1: #f5f7ff;
+      --bg2: #eaf0ff;
+      --glass: rgba(20,24,40,0.03);
+      --accent: #00aaff;
+      --accent2: #6f8fff;
+      --text: #021124;
+      --muted: #334155;
+      --neon-glow: 0 8px 30px rgba(0,170,255,0.06), 0 0 30px rgba(111,143,255,0.04);
+      --card-shadow: 0 6px 24px rgba(2,6,23,0.08);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body,#app{height:100%}
+    body{
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: var(--bg1);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow: hidden;
+    }
+    #bgCanvas{position:fixed;inset:0;z-index:0}
+
+    .wrap{position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);backdrop-filter:blur(6px);box-shadow:var(--card-shadow)}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:12px;overflow:hidden;display:inline-block;flex:0 0 56px;box-shadow:var(--neon-glow);border:1px solid rgba(255,255,255,0.04);background:transparent;}
+    .logo img{width:100%;height:100%;object-fit:contain;display:block}
+    nav{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
+    nav a.active{color:var(--accent);box-shadow:var(--neon-glow);background:linear-gradient(90deg,rgba(122,252,255,0.03),rgba(182,108,255,0.02))}
+    .controls{display:flex;gap:10px;align-items:center}
+    .btn{background:var(--glass);border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700;color:var(--text)}
+    .accent{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#021124;box-shadow:var(--neon-glow);border:none}
+    main{padding:28px;flex:1;overflow:auto}
+    .container{max-width:1200px;margin:0 auto}
+    section{display:block;animation:fade .4s ease forwards}
+    @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:14px;padding:18px;box-shadow:var(--card-shadow);border:1px solid rgba(255,255,255,0.03)}
+    footer{padding:14px 28px;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.06));text-align:center;color:var(--muted)}
+  </style>
+</head>
+<body>
+<canvas id="bgCanvas"></canvas>
+<div id="app" class="wrap">
+  <header>
+    <div class="brand">
+      <img class="logo" src="https://uploads.onecompiler.io/43t8mmpps/442mqzpjj/bear.webp" alt="BearMC Logo">
+      <div>
+        <div style="font-weight:800">BearMC</div>
+        <div class="small muted">bearmc.myftp.org</div>
+      </div>
+    </div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="store.html">Store</a>
+      <a href="staff.html">Staff</a>
+      <a href="https://discord.com/invite/QXqSHY5Rgr" target="_blank">Discord</a>
+      <a href="rules.html">Rules</a>
+      <a href="vote.html" class="active">Vote</a>
+      <a href="about.html">About</a>
+    </nav>
+    <div class="controls">
+      <button onclick="window.open('https://discord.gg/QXqSHY5Rgr')" class="btn accent">Discord</button>
+      <button onclick="alert('Join server at bearmc.myftp.org')" class="btn accent">Join Server</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section id="vote">
+        <h2>Vote</h2>
+        <p class="muted">Help BearMC grow — vote on the links below and earn rewards.</p>
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn accent" href="https://minecraft-mp.com/server/349770/vote/" target="_blank">Minecraft-MP Vote</a>
+          <a class="btn accent" href="https://minecraft.buzz/vote/17004" target="_blank">Minecraft-Buzz Vote</a>
+          <a class="btn accent" href="#" target="_blank">Vote Link 3</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <div class="small muted">© BearMC — bearmc.myftp.org</div>
+  </footer>
+</div>
+
+<script>
+const canvas = document.getElementById('bgCanvas');
+const ctx = canvas.getContext('2d');
+let W = window.innerWidth;
+let H = window.innerHeight;
+canvas.width = W;
+canvas.height = H;
+
+const particles = [];
+const particleCount = 60;
+
+for(let i=0;i<particleCount;i++){
+  particles.push({
+    x: Math.random()*W,
+    y: Math.random()*H,
+    r: Math.random()*2+1,
+    speed: Math.random()*0.5+0.2,
+    drift: Math.random()*0.5-0.25,
+    hue: Math.random()*50+180,
+    alpha: Math.random()*0.5+0.3
+  });
+}
+
+function draw(){
+  ctx.fillStyle = 'rgba(7,7,23,0.3)';
+  ctx.fillRect(0,0,W,H);
+
+  for(let p of particles){
+    p.y += p.speed;
+    p.x += p.drift;
+    if(p.y>H) p.y=0;
+    if(p.x>W) p.x=0;
+    if(p.x<0) p.x=W;
+
+    ctx.beginPath();
+    ctx.fillStyle = `hsla(${p.hue}, 100%, 50%, ${p.alpha})`;
+    ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+    ctx.fill();
+  }
+  requestAnimationFrame(draw);
+}
+
+draw();
+window.addEventListener('resize', ()=>{
+  W = window.innerWidth;
+  H = window.innerHeight;
+  canvas.width = W;
+  canvas.height = H;
+});
+</script>
+</body>
+</html>
