@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head><link rel="icon" type="image/png" href="favicon.png"></head>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700&display=swap" rel="stylesheet">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>𝔹𝕖𝕒𝕣𝕄ℂ — Official Server Website</title>
+  <style>
+    :root{
+      --bg1: #070717;
+      --bg2: #0b0f2a;
+      --glass: rgba(255,255,255,0.03);
+      --accent: #00f0ff;
+      --accent2: #0077ff;
+      --text: #e6f0ff;
+      --muted: #9aa3bf;
+      --neon-glow: 0 10px 40px rgba(0,240,255,0.12), 0 0 40px rgba(0,119,255,0.10);
+      --card-shadow: 0 10px 40px rgba(2,6,23,0.6);
+    }
+
+    [data-theme='light']{
+      --bg1: #f5f7ff;
+      --bg2: #eaf0ff;
+      --glass: rgba(20,24,40,0.03);
+      --accent: #00aaff;
+      --accent2: #6f8fff;
+      --text: #021124;
+      --muted: #334155;
+      --neon-glow: 0 8px 30px rgba(0,170,255,0.06), 0 0 30px rgba(111,143,255,0.04);
+      --card-shadow: 0 6px 24px rgba(2,6,23,0.08);
+    }
+
+    /* reset */
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body,#app{height:100%}
+    body{
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: var(--bg1);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      overflow: hidden;
+    }
+
+    
+#server-status .card {
+  min-height: 130px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+#server-status #motd {
+  display: block;
+  margin-top: 6px;
+  line-height: 1.4em;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+#server-status .card {
+  min-height: 180px;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+}
+
+#server-status #motd {
+  display: block;
+  margin-top: 6px;
+  line-height: 1.4em;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  font-size: 0.95em;
+}
+
+
+    #bgCanvas{position:fixed;inset:0;z-index:0}
+
+    
+    .wrap{position:relative;z-index:2;height:100%;display:flex;flex-direction:column}
+    header{display:flex;align-items:center;justify-content:space-between;padding:18px 28px;background:linear-gradient(180deg,rgba(255,255,255,0.02),transparent);backdrop-filter:blur(6px);box-shadow:var(--card-shadow)}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{
+      width:56px;height:56px;border-radius:12px;overflow:hidden;display:inline-block;flex:0 0 56px;box-shadow:var(--neon-glow);border:1px solid rgba(255,255,255,0.04);background:transparent;
+    }
+    .logo img{width:100%;height:100%;object-fit:contain;display:block} 
+    nav{display:flex;gap:10px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:8px;font-weight:600}
+    nav a.active{color:var(--accent);box-shadow:var(--neon-glow);background:linear-gradient(90deg,rgba(122,252,255,0.03),rgba(182,108,255,0.02))}
+
+    .controls{display:flex;gap:10px;align-items:center}
+    .btn{background:var(--glass);border:1px solid rgba(255,255,255,0.03);padding:8px 12px;border-radius:10px;cursor:pointer;font-weight:700;color:var(--text)}
+    .accent{background:linear-gradient(90deg,var(--accent),var(--accent2));color:#021124;box-shadow:var(--neon-glow);border:none}
+
+    main{padding:28px;flex:1;overflow:auto}
+    .container{max-width:1200px;margin:0 auto}
+
+    /* page sections */
+    section{display:none;animation:fade .4s ease forwards}
+    section.active{display:block}
+    @keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+    /* home hero */
+    .hero{display:flex;gap:28px;align-items:center}
+    .hero .left{flex:1}
+    .hero h1{font-size:42px;letter-spacing:-1px;margin-bottom:8px}
+    .hero p{color:var(--muted);margin-bottom:18px}
+
+    .card{background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:14px;padding:18px;box-shadow:var(--card-shadow);border:1px solid rgba(255,255,255,0.03)}
+    .stats{display:flex;gap:12px}
+    .stat{flex:1;padding:12px;border-radius:10px;background:linear-gradient(180deg,transparent,rgba(255,255,255,0.01));text-align:center}
+    .stat h3{font-size:22px}
+    .stat p{color:var(--muted)}
+
+    /* store grid */
+    .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:14px}
+    .item{padding:12px;border-radius:12px;background:linear-gradient(180deg,rgba(255,255,255,0.01),transparent);border:1px solid rgba(255,255,255,0.04)}
+    .item h4{margin-bottom:6px}
+    .item p{color:var(--muted);font-size:14px}
+    .item .buy{margin-top:8px}
+
+    /* staff */
+    .staff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+    .staff-card{padding:12px;border-radius:12px;display:flex;gap:12px;align-items:center}
+    .avatar{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800}
+
+    /* responsive */
+    @media (max-width:720px){
+      .hero{flex-direction:column;align-items:flex-start}
+      header{padding:12px}
+      nav{display:none}
+    }
+
+    footer{padding:14px 28px;background:linear-gradient(180deg,transparent,rgba(0,0,0,0.06));text-align:center;color:var(--muted)}
+
+    /* little utility */
+    .muted{color:var(--muted)}
+    .small{font-size:13px}
+    
+    /* --- Better MOTD box fit --- */
+.stats {
+  display: flex;
+  gap: 12px;
+  align-items: stretch;
+}
+.stat {
+  flex: 1;
+  min-height: 90px; /* slightly taller for long MOTDs */
+  padding: 10px;
+  border-radius: 10px;
+  background: linear-gradient(180deg, transparent, rgba(255,255,255,0.01));
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  overflow-wrap: break-word;
+  word-break: break-word;
+}
+
+#motd {
+  font-size: 0.9em;
+  line-height: 1.3em;
+  white-space: normal;
+  overflow-wrap: anywhere;
+}
+
+/* make the whole card taller */
+.hero .card {
+  min-height: 220px;
+}
+
+  </style>
+</head>
+<body>
+  <canvas id="bgCanvas"></canvas>
+  <div id="app" class="wrap">
+    <header>
+      <div class="brand">
+        <img class="logo" src="https://uploads.onecompiler.io/43t8mmpps/442mqzpjj/bear.webp
+" alt="BearMC Logo" />
+        <div>
+          <div style="font-weight:800">BearMC</div>
+          <div class="small muted">bearmc.myftp.org</div>
+        </div>
+      </div>
+
+      <nav id="nav">
+  <!-- Internal pages (no URL change) -->
+  <a href="javascript:void(0)" data-page="home" class="active">Home</a>
+
+  <!-- External pages -->
+  <a href="https://bearmc.neocities.org/store" target="_blank" rel="noopener noreferrer">Store</a>
+  <a href="https://bearmc.neocities.org/staff" target="_blank" rel="noopener noreferrer">Staff</a>
+  <a href="https://discord.com/invite/QXqSHY5Rgr" target="_blank" rel="noopener noreferrer">Discord</a>
+  <a href="https://bearmc.neocities.org/rules" target="_blank" rel="noopener noreferrer">Rules</a>
+  <a href="https://bearmc.neocities.org/vote" target="_blank" rel="noopener noreferrer">Vote</a>
+  <a href="https://bearmc.neocities.org/about" target="_blank" rel="noopener noreferrer">About</a>
+</nav>
+
+
+
+      <div class="controls">
+        <button id="discordBtn" class="btn accent">Discord</button>
+        <button id="themeBtn" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0;">Toggle Theme</button>
+        <button id="joinBtn" class="btn accent">Join Server</button>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <section id="home" class="active">
+          <div class="hero">
+            <div class="left">
+              <h1>Welcome to <span style="background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;color:transparent;">BearMC</span></h1>
+              <p class="muted">A Minecraft server multiple choices of fun and gamemodes! Join Survival, LifeSteal, Anarchy, Bedwars, Skywars, Mini-Games, and so much more! Come join us in an epic community!</p>
+
+              <div style="display:flex;gap:12px;align-items:center;margin-top:12px">
+                <button id="copyIp" class="btn">Copy IP</button>
+                <button id="openDiscord" class="btn">Open Discord</button>
+              </div>
+
+            </div>
+            <div style="width:420px">
+
+
+              <div style="margin-top:12px" class="card">
+  <div style="display:flex;flex-direction:column;gap:10px">
+    <div>
+      <div class="small muted">Quick Links</div>
+      <div style="font-weight:800">Community</div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px">
+      <button class="btn accent" onclick="window.open('https://bearmc.neocities.org/store', '_blank')">Store</button>
+      <button class="btn accent" onclick="window.open('https://www.youtube.com/@bearmc499', '_blank')">YouTube</button>
+      <button class="btn accent" onclick="window.open('https://www.tiktok.com/@bearmc499', '_blank')">TikTok</button>
+      <button class="btn accent" onclick="window.open('https://www.instagram.com/bearmc499/', '_blank')">Instagram</button>
+      <button class="btn accent" onclick="window.open('https://linktr.ee/bearmc', '_blank')">Linktree</button>
+      <button class="btn accent" onclick="window.open('https://discord.gg/QXqSHY5Rgr', '_blank')">Discord</button>
+      <button class="btn accent" onclick="window.open('https://x.com/bearmc499', '_blank')">X (Twitter)</button>
+    </div>
+  </div>
+</div>
+
+
+            </div>
+          </div>
+        </section>
+
+        <section id="store">
+          <h2>Store</h2>
+          <p class="muted">Buy ranks, cosmetics and items. (placeholders below — replace with real payment links)</p>
+          <div class="grid">
+            <div class="item card">
+              <h4>Starter Pack</h4>
+              <p class="muted">Great for new players. Contains basic tools and a welcome kit.</p>
+              <div class="buy"><button class="btn accent">Buy — $2.99</button></div>
+            </div>
+            <div class="item card">
+              <h4>Rank: Bear</h4>
+              <p class="muted">Access to protected claims and personal homes.</p>
+              <div class="buy"><button class="btn accent">Buy — $9.99</button></div>
+            </div>
+            <div class="item card">
+              <h4>Cosmetic: Neon Cape</h4>
+              <p class="muted">A glowing cape that fits the neon aesthetic.</p>
+              <div class="buy"><button class="btn accent">Buy — $4.99</button></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="discord">
+          <h2>Discord</h2>
+          <p class="muted">Join our community on Discord. Click below to open the invite.</p>
+          <div style="margin-top:12px">
+            <button id="discordInvite" class="btn accent">Open Invite</button>
+          </div>
+        </section>
+
+<style>
+.avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 12px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+</style>
+
+
+
+<script>
+// Dynamically load avatars from separate HTML files
+document.querySelectorAll('.avatar[data-file]').forEach(div => {
+  fetch(div.dataset.file)
+    .then(resp => resp.text())
+    .then(html => { div.innerHTML = html; })
+    .catch(err => {
+      console.error('Failed to load avatar:', div.dataset.file, err);
+      div.innerHTML = '<div style="color:red;font-size:12px;">Error</div>';
+    });
+});
+</script>
+
+
+
+<script>
+  // -----------------------------
+  // Configuration & Navigation
+  // -----------------------------
+  const SERVER_IP = 'bearmc.myftp.org';
+  const DISCORD_INVITE = 'https://discord.gg/QXqSHY5Rgr';
+
+  document.querySelectorAll('#nav a').forEach(a => {
+    if (!a.dataset.page) return;
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      switchPage(a.dataset.page);
+    });
+  });
+
+  function switchPage(name) {
+    document.querySelectorAll('nav a').forEach(a => {
+      if (a.dataset.page) {
+        a.classList.toggle('active', a.dataset.page === name);
+      }
+    });
+    document.querySelectorAll('main section').forEach(s => {
+      s.classList.toggle('active', s.id === name);
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Copy IP / Join button
+  document.getElementById('copyIp').addEventListener('click', () => {
+    navigator.clipboard.writeText(SERVER_IP).then(() =>
+      alert('Server IP copied: ' + SERVER_IP)
+    );
+  });
+
+  document.getElementById('joinBtn').addEventListener('click', () => {
+    navigator.clipboard.writeText(SERVER_IP).then(() => {
+      const el = document.getElementById('joinBtn');
+      el.innerText = 'Copied!';
+      setTimeout(() => (el.innerText = 'Join Server'), 1500);
+    });
+  });
+
+    // Discord buttons
+document.getElementById('openDiscord').addEventListener('click', () => {
+  window.open(DISCORD_INVITE, '_blank');
+});
+document.getElementById('discordInvite').addEventListener('click', () => {
+  window.open(DISCORD_INVITE, '_blank');
+});
+document.getElementById('discordBtn').addEventListener('click', () => {
+  window.open(DISCORD_INVITE, '_blank');
+});
+
+
+  // Background particles
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+
+  let W = window.innerWidth;
+  let H = window.innerHeight;
+  canvas.width = W;
+  canvas.height = H;
+
+  const particles = [];
+  const particleCount = 60;
+
+  for(let i=0;i<particleCount;i++){
+    particles.push({
+      x: Math.random()*W,
+      y: Math.random()*H,
+      r: Math.random()*2+1,
+      speed: Math.random()*0.5+0.2,
+      drift: Math.random()*0.5-0.25,
+      hue: Math.random()*50+180,
+      alpha: Math.random()*0.5+0.3
+    });
+  }
+
+  function draw(){
+    ctx.fillStyle = 'rgba(7,7,23,0.3)';
+    ctx.fillRect(0,0,W,H);
+
+    for(let p of particles){
+      p.y += p.speed;
+      p.x += p.drift;
+      if(p.y>H) p.y=0;
+      if(p.x>W) p.x=0;
+      if(p.x<0) p.x=W;
+
+      ctx.beginPath();
+      ctx.fillStyle = `hsla(${p.hue}, 100%, 50%, ${p.alpha})`;
+      ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fill();
+    }
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+
+  window.addEventListener('resize', ()=> {
+    W = window.innerWidth;
+    H = window.innerHeight;
+    canvas.width = W;
+    canvas.height = H;
+  });
+</script>
+
+
+
+</body>
+</html>
